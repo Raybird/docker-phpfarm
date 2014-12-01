@@ -52,6 +52,19 @@ Note: the entry point for this image has been defined as ''/bin/bash'' and it wi
 run our ''run.sh'' by default. You can specify other parameters to be run by bash
 of course.
 
+custom changes
+--------------
+* added xdebug for php 5.3, and changed some default values
+to use it add to .htaccess 
+  php_value xdebug.remote_host      172.17.42.1
+  php_value xdebug.remote_port      9000
+
+
+* added mysql and mysql pdo support
+
+
+
+
 To Do
 -----
 

@@ -18,6 +18,10 @@ configoptions="$configoptions \
     --with-mhash \
     --with-mcrypt \
     --with-libdir=$LIBPATH \
+    --with-mysqli=/usr/bin/mysql_config \
+    --with-mysql \
+    --enable-pdo \
+    --with-pdo-mysql=/usr \
 "
 
 echo $configoptions

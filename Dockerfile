@@ -30,7 +30,10 @@ RUN apt-get update && \
     libmcrypt-dev \
     libt1-dev \
     libltdl-dev \
-    libmhash-dev
+    libmhash-dev \
+    libmysqlclient-dev \ 
+    bash \
+    autoconf 
 
 # install and run the phpfarm script
 RUN git clone git://git.code.sf.net/p/phpfarm/code phpfarm
@@ -49,6 +52,11 @@ RUN cd /phpfarm/src && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+ENV PATH /phpfarm/inst/bin/:/usr/sbin:/usr/bin:/sbin:/bin:/phpfarm/inst/php-5.3.29/bin
+RUN cd /tmp ; wget http://xdebug.org/files/xdebug-2.2.6.tgz ; tar zxvf xdebug-2.2.6.tgz;cd xdebug-2.2.6; phpize-5.3.29 ; ./configure ; make ; make install ; ls /phpfarm/inst
+COPY phpfarm/fcgid.conf /etc/apache2/mods-available/fcgid.conf
+    
+
 # reconfigure Apache
 RUN rm -rf /var/www/*
 
@@ -59,7 +67,6 @@ RUN a2ensite php-5.2 php-5.3 php-5.4 php-5.5 php-5.6
 RUN a2enmod rewrite
 
 # set path
-ENV PATH /phpfarm/inst/bin/:/usr/sbin:/usr/bin:/sbin:/bin
 
 # expose the ports
 EXPOSE 8052 8053 8054 8055 8056
